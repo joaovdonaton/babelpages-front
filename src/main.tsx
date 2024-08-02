@@ -6,15 +6,12 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <div>hey</div>
-    },
-    {
-        path: "/friend",
-        element: <div>I am friend. I am eternal.</div>
+        element: <div>main</div>
     }
-])
+    ]
+)
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
       <RouterProvider router={router}></RouterProvider>
   </React.StrictMode>,
