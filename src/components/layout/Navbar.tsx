@@ -1,6 +1,6 @@
 import "./Navbar.css"
-import bookLogo from '../../images/book-logo.png';
-import searchIcon from '../../images/icons/search-icon.png';
+import bookLogo from '../../assets/images/book-logo.png';
+import searchIcon from '../../assets/images/icons/search-icon.png';
 
 const Navbar = () => {
     return (

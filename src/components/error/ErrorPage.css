@@ -1,0 +1,41 @@
+#error-page-container{
+    display: flex;
+    flex-direction: column;
+    font-size: 4rem;
+    align-items: center;
+    padding: 5rem;
+    height: 80vh;
+}
+
+#error-page-panel{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: white;
+    padding: 3rem 8rem;
+    border-radius: 0.3rem;
+}
+
+#error-page-panel h3{
+    margin-bottom: 4rem;
+}
+
+#error-page-panel p{
+    font-size: 1.2rem;
+    margin: 0.4rem;
+}
+
+#homepage-button{
+    border-radius: 10rem;
+    background-color: black;
+    color: white;
+    padding: 1rem 4rem;
+    text-decoration: none;
+    font-size: 1.5rem;
+    margin-top: 5rem;
+}
+
+#homepage-button:hover{
+    background-color: rgb(44, 44, 44);
+}
