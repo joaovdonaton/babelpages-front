@@ -1,0 +1,37 @@
+#main-page-container{
+    display: flex;
+    flex-direction: column;
+}
+
+#main-page-banner-container{
+    /* since the child we want to position is position: absolute (main-page-logo-container), we need parent to be
+     position: relative. This is because the size/position of absolute elements is relative to its nearest POSITIONED
+     ANCESTOR, i.e nearest parent that has a position other than static (default)*/
+    position: relative;
+}
+
+#main-page-logo-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    font-size: 3.2rem;
+    font-weight: bold;
+    color: #F8F4E1;
+}
+
+#banner-image{
+    width: 100%;
+    height: auto;
+}
+
+.divider {
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid #9F9F9F;
+    width: 75%;
+}

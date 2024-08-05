@@ -2,26 +2,29 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import Navbar from "./components/layout/Navbar.tsx";
 import ErrorPage from "./components/error/ErrorPage.tsx";
-import Footer from './components/layout/Footer.tsx'
-
 
 import './style/global.css';
+import MainPage from "./components/pages/MainPage.tsx";
+import Layout from "./components/layout/Layout.tsx";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <div style={{height: "100vh"}}>main</div>,
+        element: <Layout />,
+        // will be rendered in the <Outlet/> tag inside <Layout/>
+        children: [
+            {
+                path: "/",
+                element: <MainPage/>,
+            }
+        ],
         errorElement: <ErrorPage/>
-    }
-    ]
+    }]
 )
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-      <Navbar/>
-      <RouterProvider router={router}></RouterProvider>
-      <Footer/>
+      <RouterProvider router={router}/>
   </React.StrictMode>,
 )

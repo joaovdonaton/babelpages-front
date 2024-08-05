@@ -3,31 +3,27 @@
     grid-template-columns: 1fr 1fr 1fr;
     background-color: #E1C16E;
     border-bottom: #C2A65D solid 0.5rem;
-    padding: 0.5rem;
+    padding: 0.5rem 2rem;
     height: 5vh;
 }
 
-#navbar-container div{
+.navbar-row-container{
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
     font-weight: bold;
     color: #F8F4E1;
 }
 
 #navbar-logo-container{
-    align-items: center;
-    justify-content: center;
     font-size: 2rem;
+    justify-content: flex-start;
 }
 
-#book-logo{
+#navbar-book-logo{
     height: 3.2rem;
     width: auto;
-}
-
-#navbar-search-container{
-    justify-content: center;
-    align-items: center;
 }
 
 #navbar-container form{
@@ -37,7 +33,7 @@
 }
 
 #navbar-search-container input[type="text"]{
-    height: 2rem;
+    height: 1.75rem;
     width: 85%;
     border-radius: 0.3rem;
     border: none;
@@ -48,11 +44,101 @@
 }
 
 #navbar-link-container{
-    align-items: center;
-    justify-content: space-around;
-    font-size: 1.5rem;
+    justify-content: flex-end;
+    font-size: 1.25rem;
 }
 
 #search-bar-icon{
     height: 2rem;
+}
+
+#sidenav-button{
+    display: none;
+}
+
+#sidenav-button:hover{
+    cursor: pointer;
+}
+
+#sidenav-button img{
+    width: 3rem;
+    height: auto;
+}
+
+#full-links-container{
+    display: flex;
+    justify-content: space-around;
+    column-gap: 2rem;
+}
+
+@media (max-width: 650px){
+    #navbar-container{
+        padding: 0.3rem 1rem;
+        grid-template-columns: none;
+        grid-template-areas:
+            'nav logo'
+            'search search';
+        height: 15vh;
+    }
+
+    #navbar-logo-container{
+        grid-area: logo;
+        justify-content: flex-end;
+        font-size: 2rem;
+    }
+
+    #navbar-book-logo{
+        height: 3.2rem;
+    }
+
+    #navbar-search-container{
+        grid-area: search;
+    }
+
+    #navbar-link-container{
+        justify-content: flex-start;
+        grid-area: nav;
+    }
+
+    #full-links-container{
+        display: none;
+    }
+
+    #sidenav-button{
+        display: contents;
+    }
+
+}
+
+/* SIDEBAR NAVIGATION */
+
+#sidenav-container{
+    background-color: #e1c16e;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+
+    transition: 0.3s;
+}
+
+.sidenav-open{
+    width: 50%;
+}
+
+.sidenav-closed{
+    width: 0;
+}
+
+#sidenav-close-button{
+    height: 2rem;
+    width: auto;
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+}
+
+#sidenav-close-button:hover{
+    cursor: pointer;
 }
