@@ -44,8 +44,24 @@ const Navbar = () => {
                 </div>
 
                 {/*side navbar (initially hidden)*/}
+                {isSidebarOpen && <div id="background-opacity"></div>}
                 <div id="sidenav-container" className={ isSidebarOpen ? 'sidenav-open' : 'sidenav-closed'}>
                     <img src={sidenavCloseIcon} alt={"close button"} id="sidenav-close-button" onClick={switchSidebarState}/>
+
+                    <div id="sidenav-links-container">
+                        <Link to="/" className="remove-a-style navigation-link-button" onClick={switchSidebarState}>
+                            Home
+                        </Link>
+                        <Link to="/search" className="remove-a-style navigation-link-button" onClick={switchSidebarState}>
+                            Explore
+                        </Link>
+                        <Link to="/reviews" className="remove-a-style navigation-link-button" onClick={switchSidebarState}>
+                            Reviews
+                        </Link>
+                        <Link to="/register" className="remove-a-style navigation-link-button" onClick={switchSidebarState}>
+                            Sign In
+                        </Link>
+                    </div>
                 </div>
             </div>
         </Fragment>

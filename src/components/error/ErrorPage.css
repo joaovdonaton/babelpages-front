@@ -39,3 +39,21 @@
 #homepage-button:hover{
     background-color: rgb(44, 44, 44);
 }
+
+@media (max-width: 650px){
+    #error-page-container{
+        padding: 1rem;
+    }
+    #error-page-panel{
+        padding: 1rem;
+    }
+
+    #error-page-panel h3{
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    #homepage-button{
+        padding: 1rem;
+    }
+}

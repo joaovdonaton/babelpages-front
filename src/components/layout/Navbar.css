@@ -121,14 +121,18 @@
     z-index: 100;
 
     transition: 0.3s;
+
+    overflow: hidden;
 }
 
 .sidenav-open{
-    width: 50%;
+    width: 40%;
+    padding: 5rem 2rem;
 }
 
 .sidenav-closed{
     width: 0;
+    padding: 0;
 }
 
 #sidenav-close-button{
@@ -141,4 +145,35 @@
 
 #sidenav-close-button:hover{
     cursor: pointer;
+}
+
+#background-opacity{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99;
+
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.5);
+}
+
+#sidenav-links-container{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    font-size: 1.4rem;
+    text-align: right;
+}
+
+.navigation-link-button{
+    color: #F8F4E1;
+    font-weight: bold;
+    padding: 0.3rem;
+
+    transition: 0.3s;
+}
+
+.navigation-link-button:hover{
+    color: #dfdad3;
 }
