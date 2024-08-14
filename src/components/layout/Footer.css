@@ -8,6 +8,7 @@
     color: #FFFFFF;
 
     background-color: #E1C16E;
+
 }
 
 #footer-container p{
@@ -25,6 +26,8 @@
 
     font-weight: 300;
     color: white;
+
+    margin-top: 3rem;
 }
 
 #footer-top-bar a{

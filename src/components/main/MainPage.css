@@ -3,6 +3,8 @@
     flex-direction: column;
 }
 
+/* BANNER */
+
 #main-page-banner-container{
     /* since the child we want to position is position: absolute (main-page-logo-container), we need parent to be
      position: relative. This is because the size/position of absolute elements is relative to its nearest POSITIONED
@@ -34,4 +36,44 @@
     border-right: none;
     border-bottom: 1px solid #9F9F9F;
     width: 75%;
+    margin: 2rem auto;
+}
+
+
+/* PAGE */
+
+
+/* icons */
+#main-page-icons-container{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    column-gap: 3rem;
+}
+
+.main-page-icon-link{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    row-gap: 0.5rem;
+}
+
+.main-page-icon-link img{
+    width: 5rem;
+    height: auto;
+}
+
+/* display */
+#main-page-display-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    padding: 0 12.5%;
+}
+
+.main-page-display-panel{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

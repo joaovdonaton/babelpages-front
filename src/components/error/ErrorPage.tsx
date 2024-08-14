@@ -7,7 +7,6 @@ import {Fragment} from "react";
 
 const ErrorPage = () => {
     const error = useRouteError();
-    console.log(error);
 
     return(
         // <div id="error-page-container" style={{backgroundImage: `url(${background})`}}> FOR ALTERNATIVE DESIGN
