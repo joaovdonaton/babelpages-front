@@ -1,0 +1,12 @@
+.stars-container{
+    display: flex;
+    flex-direction: row;
+    gap: 0.25rem;
+
+    width: 100%;
+}
+
+.stars-img{
+    width: 1.7rem;
+    height: 1.7rem;
+}

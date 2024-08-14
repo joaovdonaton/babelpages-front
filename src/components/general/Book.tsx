@@ -4,12 +4,11 @@ import placeholderCoverImage from '../../assets/images/replacements/cover-unavai
 
 import './Book.css';
 import {formatDate} from "../../util/util.ts";
+import Stars from "./Stars.tsx";
 
 // todo: add component for stars based on score
 
 const Book = ({bookData} : {bookData: BookSearchResult}) => {
-    console.log(bookData)
-
     return <div className="book-container">
         <div className="book-cover-container">
             <img src={bookData.coverURL === null ? placeholderCoverImage: bookData.coverURL} alt={`cover for ${bookData.title}`}
@@ -19,6 +18,7 @@ const Book = ({bookData} : {bookData: BookSearchResult}) => {
             <p className="book-text-title"> {bookData.title} </p>
             <p className="book-text-authors"> {bookData.authors} </p>
             <p className="book-text-pubdate"> {formatDate(bookData.pubYear, bookData.pubMonth, bookData.pubDay)} </p>
+            <Stars rawScore={bookData.avgScore} />
         </div>
 
     </div>

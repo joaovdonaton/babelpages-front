@@ -1,4 +1,4 @@
-import Nullable from "./Nullable.ts";
+import Nullable from "../util/Nullable.ts";
 
 interface BookSearchResult {
     id: string,

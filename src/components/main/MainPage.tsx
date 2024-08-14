@@ -8,7 +8,7 @@ import {Link} from "react-router-dom";
 import {useEffect, useState} from "react";
 
 import BookSearchResult from "../../interfaces/BookSearchResult.ts";
-import Book from "./Book.tsx";
+import Book from "../general/Book.tsx";
 
 // todo: add nice loading icon for books
 
