@@ -2,6 +2,7 @@ import libraryBanner from '../../assets/images/library-banner.jpg';
 import bookLogo from '../../assets/images/book-logo.png';
 import searchIcon from '../../assets/images/icons/search-inverted-icon.png';
 import questionMarkIcon from '../../assets/images/icons/question-icon.png';
+import loadingGif from '../../assets/images/gifs/loading.gif';
 
 import './MainPage.css'
 import {Link} from "react-router-dom";
@@ -57,7 +58,7 @@ const MainPage = () => {
         <div id="main-page-display-container">
             <div className="main-page-display-panel">
                 <h3>Random Book</h3>
-                {Object.keys(randomBookData).length === 0 ? <p> loading</p>: <Book bookData={randomBookData}/>}
+                <Book bookData={Object.keys(randomBookData).length === 0 ? undefined: randomBookData}/>
             </div>
             <div className="main-page-display-panel">
 
