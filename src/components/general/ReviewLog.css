@@ -1,0 +1,17 @@
+.review-log-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    background-color: #EEEEEE;
+    padding: 0.75rem 2rem;
+    border-radius: 0.15rem;
+    margin-bottom: 0.75rem;
+
+    width: 90%;
+    font-size: 1.1rem;
+}
+
+.review-log-container p{
+    margin: 0;
+}

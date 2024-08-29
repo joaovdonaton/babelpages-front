@@ -2,7 +2,6 @@ import libraryBanner from '../../assets/images/library-banner.jpg';
 import bookLogo from '../../assets/images/book-logo.png';
 import searchIcon from '../../assets/images/icons/search-inverted-icon.png';
 import questionMarkIcon from '../../assets/images/icons/question-icon.png';
-import loadingGif from '../../assets/images/gifs/loading.gif';
 
 import './MainPage.css'
 import {Link} from "react-router-dom";
@@ -10,12 +9,14 @@ import {useEffect, useState} from "react";
 
 import BookSearchResult from "../../interfaces/BookSearchResult.ts";
 import Book from "../general/Book.tsx";
-
-// todo: add nice loading icon for books
+import ReviewDetailsFull from "../../interfaces/ReviewDetailsFull.ts";
+import ReviewLog from "../general/ReviewLog.tsx";
 
 const MainPage = () => {
     const [randomBookData, setRandomBookData] = useState<BookSearchResult>({} as BookSearchResult);
+    const [recentReviews, setRecentReviews] = useState<ReviewDetailsFull[]>([]);
 
+    // random book data
     useEffect(() => {
         async function fetchRandom(){
             const resp = await fetch( import.meta.env.VITE_API_URL+'books/random');
@@ -30,6 +31,25 @@ const MainPage = () => {
 
         fetchRandom();
     }, [])
+
+    // fetch 5 most recent reviews
+    useEffect(() => {
+        async function fetchRecentReviews(){
+            const resp = await fetch( import.meta.env.VITE_API_URL+'reviews/?'
+            + (new URLSearchParams({'orderBy': 'DATE', 'limit': '5', 'page': '0', 'ascDesc': 'ASC'})).toString());
+
+            if(!resp.ok){
+                throw new Error('Failed to fetch recent reviews!');
+            }
+
+            // apparently typescript thinks the fields in the object of this array may be undefined
+            const jsonData = await resp.json() as ReviewDetailsFull[];
+
+            setRecentReviews(jsonData);
+        }
+
+        fetchRecentReviews();
+    }, []);
 
     return (<div id={"main-page-container"}>
         <div id="main-page-banner-container">
@@ -61,7 +81,8 @@ const MainPage = () => {
                 <Book bookData={Object.keys(randomBookData).length === 0 ? undefined: randomBookData}/>
             </div>
             <div className="main-page-display-panel">
-
+                <h3>Recent Reviews</h3>
+                {recentReviews.map((r) => <ReviewLog details={r}/>)}
             </div>
         </div>
 
