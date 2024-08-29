@@ -2,6 +2,7 @@ import ReviewDetailsFull from "../../interfaces/ReviewDetailsFull.ts";
 
 import './ReviewLog.css'
 import Stars from "./Stars.tsx";
+import {Link} from "react-router-dom";
 
 // TODO: make this into a button to book mentioned in review
 
@@ -9,7 +10,7 @@ const ReviewLog = ({details}: {details: ReviewDetailsFull}) => {
     const bookTitleFix = details.bookTitle.length >= 20 ?
         details.bookTitle.substring(0, 20)+'...' : details.bookTitle;
 
-    return <div className="review-log-container">
+    return (<Link className="remove-a-style review-log-container" to={`/books/${details.bookId}`}>
         <p>
             {details.user.username}
             {' '}
@@ -19,7 +20,7 @@ const ReviewLog = ({details}: {details: ReviewDetailsFull}) => {
             {' a score of '}
         </p>
         <Stars rawScore={details.score}/>
-    </div>
+    </Link>)
 };
 
 export default ReviewLog;

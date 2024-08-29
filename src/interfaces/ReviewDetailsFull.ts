@@ -4,6 +4,7 @@ interface ReviewDetailsFull{
     id: string,
     title: string,
     bookTitle: string,
+    bookId: string,
     body: string,
     score: number,
     funnyVotes: number,

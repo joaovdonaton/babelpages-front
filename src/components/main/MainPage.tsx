@@ -82,7 +82,7 @@ const MainPage = () => {
             </div>
             <div className="main-page-display-panel">
                 <h3>Recent Reviews</h3>
-                {recentReviews.map((r) => <ReviewLog details={r}/>)}
+                {recentReviews.map((r) => <ReviewLog key={r.id} details={r}/>)}
             </div>
         </div>
 

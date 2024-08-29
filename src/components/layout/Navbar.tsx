@@ -34,9 +34,15 @@ const Navbar = () => {
                 </div>
                 <div className="navbar-row-container" id="navbar-link-container">
                     <div id="full-links-container">
-                        <a>Explore</a>
-                        <a>Reviews</a>
-                        <a>Sign In</a>
+                        <Link to="/search" className="remove-a-style navigation-link-button">
+                            Explore
+                        </Link>
+                        <Link to="/reviews" className="remove-a-style navigation-link-button">
+                            Reviews
+                        </Link>
+                        <Link to="/register" className="remove-a-style navigation-link-button">
+                            Sign In
+                        </Link>
                     </div>
                     <a id={"sidenav-button"} onClick={switchSidebarState}>
                         <img src={sidenavIcon} alt={"sidenav icon"}/>
