@@ -1,6 +1,8 @@
 #main-page-container{
     display: flex;
     flex-direction: column;
+
+    margin-bottom: 3rem;
 }
 
 /* BANNER */
@@ -62,6 +64,12 @@
 .main-page-icon-link img{
     width: 5rem;
     height: auto;
+
+    transition: 0.2s;
+}
+
+.main-page-icon-link img:hover{
+    scale: 1.15;
 }
 
 /* display */

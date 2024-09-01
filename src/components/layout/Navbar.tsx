@@ -40,7 +40,7 @@ const Navbar = () => {
                         <Link to="/reviews" className="remove-a-style navigation-link-button">
                             Reviews
                         </Link>
-                        <Link to="/register" className="remove-a-style navigation-link-button">
+                        <Link to="/login" className="remove-a-style navigation-link-button">
                             Sign In
                         </Link>
                     </div>
@@ -64,7 +64,7 @@ const Navbar = () => {
                         <Link to="/reviews" className="remove-a-style navigation-link-button" onClick={switchSidebarState}>
                             Reviews
                         </Link>
-                        <Link to="/register" className="remove-a-style navigation-link-button" onClick={switchSidebarState}>
+                        <Link to="/login" className="remove-a-style navigation-link-button" onClick={switchSidebarState}>
                             Sign In
                         </Link>
                     </div>

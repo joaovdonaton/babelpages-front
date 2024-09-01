@@ -7,6 +7,7 @@ import ErrorPage from "./components/error/ErrorPage.tsx";
 import './style/global.css';
 import MainPage from "./components/main/MainPage.tsx";
 import Layout from "./components/layout/Layout.tsx";
+import LoginPage from "./components/login/LoginPage.tsx";
 
 const router = createBrowserRouter([
     {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
             {
                 path: "/",
                 element: <MainPage/>,
+            },
+            {
+                path: "/login",
+                element: <LoginPage/>,
             }
         ],
         errorElement: <ErrorPage/>
