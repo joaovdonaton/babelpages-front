@@ -1,8 +1,10 @@
 import './LoginPage.css'
 import {Link} from "react-router-dom";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import * as Cookies from "js-cookie";
 import TokenResponse from "../../interfaces/TokenResponse.ts";
+import {UserContext} from "../../context/UserContext.ts";
+import UserSelfResponse from "../../interfaces/UserSelfResponse.ts";
 
 /*
 * TODO: login page message after success
@@ -15,8 +17,10 @@ const LoginPage = () => {
     const [password, setPassword] = useState('');
     const [loginStatus, setLoginStatus] = useState<string|undefined>();
 
+    const { setUser } = useContext(UserContext);
+
     async function handleSubmission(){
-        const resp = await fetch(import.meta.env.VITE_API_URL+"users/login", {
+        let resp = await fetch(import.meta.env.VITE_API_URL+"users/login", {
             method: 'POST',
             body: JSON.stringify({"username": username, "password": password}),
             headers: {
@@ -30,6 +34,19 @@ const LoginPage = () => {
         else{
             const token = await resp.json() as TokenResponse;
             Cookies.default.set("token", token.token);
+
+            // fetch user details for context
+            resp = await fetch(import.meta.env.VITE_API_URL+"users/self",
+                {
+                    headers: {
+                        "Authorization": "Bearer " + Cookies.default.get("token")
+                    }
+                });
+
+            if(resp.ok){
+                const userInfo = (await resp.json()) as UserSelfResponse;
+                setUser(userInfo);
+            }
         }
     }
 

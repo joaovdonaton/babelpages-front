@@ -4,40 +4,26 @@ import searchIcon from '../../assets/images/icons/search-icon.png';
 import sidenavIcon from '../../assets/images/icons/sidenav-icon.png';
 import sidenavCloseIcon from '../../assets/images/icons/sidenav-close-icon.png';
 import {Link} from "react-router-dom";
-import React, {Fragment, useEffect, useState} from "react";
+import React, {Fragment, useContext, useEffect, useState} from "react";
 
 import '../../style/global.css'
-import * as Cookies from "js-cookie";
-import UserSelfResponse from "../../interfaces/UserSelfResponse.ts";
+import {UserContext} from "../../context/UserContext.ts";
 
 const Navbar = () => {
     const [isSidebarOpen, setSidebarOpen] = React.useState(false);
     const [username, setUsername] = useState<string|undefined>(undefined);
+
+    const { user } = useContext(UserContext);
 
     const switchSidebarState = () => {
         setSidebarOpen(!isSidebarOpen);
     }
 
     useEffect(() => {
-        async function getUserDetails() {
-            const resp = await fetch(import.meta.env.VITE_API_URL+"users/self",
-                {
-                    headers: {
-                        "Authorization": "Bearer " + Cookies.default.get("token")
-                    }
-                });
-
-            if(resp.ok){
-                const userInfo = (await resp.json()) as UserSelfResponse;
-                setUsername(userInfo.username);
-            }
+        if(user !== undefined){
+            setUsername(user.username)
         }
-
-        if(Cookies.default.get("token") !== undefined){
-            getUserDetails()
-        }
-
-    }, []);
+    }, [user]);
 
     return (
         <Fragment>
