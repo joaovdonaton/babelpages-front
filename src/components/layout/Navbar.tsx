@@ -4,16 +4,40 @@ import searchIcon from '../../assets/images/icons/search-icon.png';
 import sidenavIcon from '../../assets/images/icons/sidenav-icon.png';
 import sidenavCloseIcon from '../../assets/images/icons/sidenav-close-icon.png';
 import {Link} from "react-router-dom";
-import React, {Fragment} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 
 import '../../style/global.css'
+import * as Cookies from "js-cookie";
+import UserSelfResponse from "../../interfaces/UserSelfResponse.ts";
 
 const Navbar = () => {
     const [isSidebarOpen, setSidebarOpen] = React.useState(false);
+    const [username, setUsername] = useState<string|undefined>(undefined);
 
     const switchSidebarState = () => {
         setSidebarOpen(!isSidebarOpen);
     }
+
+    useEffect(() => {
+        async function getUserDetails() {
+            const resp = await fetch(import.meta.env.VITE_API_URL+"users/self",
+                {
+                    headers: {
+                        "Authorization": "Bearer " + Cookies.default.get("token")
+                    }
+                });
+
+            if(resp.ok){
+                const userInfo = (await resp.json()) as UserSelfResponse;
+                setUsername(userInfo.username);
+            }
+        }
+
+        if(Cookies.default.get("token") !== undefined){
+            getUserDetails()
+        }
+
+    }, []);
 
     return (
         <Fragment>
@@ -40,9 +64,15 @@ const Navbar = () => {
                         <Link to="/reviews" className="remove-a-style navigation-link-button">
                             Reviews
                         </Link>
+                        {username !== undefined ?
+                            <Link to={"/users/"+username} className="remove-a-style navigation-link-button">
+                                {username}
+                            </Link>
+                            :
                         <Link to="/login" className="remove-a-style navigation-link-button">
                             Sign In
                         </Link>
+                        }
                     </div>
                     <a id={"sidenav-button"} onClick={switchSidebarState}>
                         <img src={sidenavIcon} alt={"sidenav icon"}/>

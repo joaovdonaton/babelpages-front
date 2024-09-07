@@ -1,6 +1,14 @@
 import './LoginPage.css'
 import {Link} from "react-router-dom";
 import {useState} from "react";
+import * as Cookies from "js-cookie";
+import TokenResponse from "../../interfaces/TokenResponse.ts";
+
+/*
+* TODO: login page message after success
+*
+* TODO: make global state or something in order to have page reload and automatically get authenticated user in navbar
+* */
 
 const LoginPage = () => {
     const [username, setUsername] = useState('');
@@ -19,8 +27,10 @@ const LoginPage = () => {
         if(!resp.ok){
             setLoginStatus("Failed to authenticate. Invalid Credentials");
         }
-
-        console.log(await resp.json())
+        else{
+            const token = await resp.json() as TokenResponse;
+            Cookies.default.set("token", token.token);
+        }
     }
 
     return (<div id="login-page-container">
