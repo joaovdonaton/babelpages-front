@@ -19,14 +19,49 @@
     justify-content: center;
     align-items: center;
 
-    position: absolute;
-    width: 100%;
-    height: 100%;
-
     font-size: 3.2rem;
     font-weight: bold;
     color: #F8F4E1;
 }
+
+#main-page-top-panel-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 3rem;
+
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+#main-page-stats-container{
+    display: flex;
+    column-gap: 4rem;
+}
+
+.main-page-single-stat{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-page-stat-description{
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #9D9574;
+}
+
+.main-page-stat-number{
+    font-weight: bold;
+    display: inline-block;
+    font-size: 2rem;
+    color: #F8F4E1;
+
+    margin: 0;
+}
+
 
 #banner-image{
     width: 100%;
