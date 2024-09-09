@@ -11,13 +11,17 @@ import Book from "../general/Book.tsx";
 import ReviewDetailsFull from "../../interfaces/ReviewDetailsFull.ts";
 import ReviewLog from "../general/ReviewLog.tsx";
 import GeneralStatisticsResponse from "../../interfaces/GeneralStatisticsResponse.ts";
-import useFetch from "../../hooks/useFetch.ts";
+import useFetchApi from "../../hooks/useFetchApi.ts";
+import {BABEL_URL} from "../../util/constants.ts";
 
 const MainPage = () => {
-    const {data: randomBookData} = useFetch<BookSearchResult|undefined>("books/random");
-    const {data: recentReviews} = useFetch<ReviewDetailsFull[]>("reviews/?",
-        new URLSearchParams({'orderBy': 'DATE', 'limit': '5', 'page': '0', 'ascDesc': 'ASC'}));
-    const { data: statistics } = useFetch<GeneralStatisticsResponse>('stats/');
+    const {data: randomBookData} =
+        useFetchApi<BookSearchResult|undefined>(BABEL_URL+"books/random");
+    const {data: recentReviews} =
+        useFetchApi<ReviewDetailsFull[]>(BABEL_URL+"reviews/?",
+            {queryParams: new URLSearchParams({'orderBy': 'DATE', 'limit': '5', 'page': '0', 'ascDesc': 'ASC'})});
+    const { data: statistics } =
+        useFetchApi<GeneralStatisticsResponse>(BABEL_URL+'stats/');
 
     return (<div id={"main-page-container"}>
         <div id="main-page-banner-container">

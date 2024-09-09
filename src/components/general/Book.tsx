@@ -6,30 +6,27 @@ import loadingGif from '../../assets/images/gifs/loading.gif';
 import './Book.css';
 import {formatDate} from "../../util/util.ts";
 import Stars from "./Stars.tsx";
-import {useEffect, useState} from "react";
+import useFetchApi from "../../hooks/useFetchApi.ts";
 
 const Book = ({bookData} : {bookData?: BookSearchResult}) => {
-    const [coverImage, setCoverImage] = useState<string>(loadingGif)
+    const {data: coverImage} = useFetchApi<string>(bookData === undefined ? null : bookData.coverURL,
+        {isImage: true})
 
-    useEffect(() => {
-        async function fetchCover(coverURL: string){
-            const resp = await fetch(coverURL);
-
-            if(!resp.ok){
-                throw new Error('Failed to retrieve cover');
-            }
-            setCoverImage(URL.createObjectURL(await resp.blob()));
-        }
-
-        if(bookData !== undefined) {
-            if (bookData.coverURL !== null) fetchCover(bookData.coverURL);
-            else setCoverImage(placeholderCoverImage)
-        }
-    }, [bookData]);
+    console.log("coverImage: " + coverImage)
 
     return <div className="book-container">
         <div className="book-cover-container">
-            <img src={coverImage} alt={`cover for ${bookData && bookData.title}`}
+            <img src={
+                // TODO: fix mess
+                bookData !== undefined ?
+                    (bookData.coverURL === null ?
+                        placeholderCoverImage
+                        :
+                            (coverImage === undefined ? loadingGif : coverImage)
+                    )
+                    :
+                    placeholderCoverImage
+            } alt={`cover for ${bookData && bookData.title}`}
             className="book-cover-image"/>
         </div>
         <div className="book-info-container">

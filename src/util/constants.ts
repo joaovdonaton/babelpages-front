@@ -13,4 +13,6 @@ const monthNumToWord = new Map<number, string>([
     [12, "December"]
 ]);
 
-export {monthNumToWord};
+const BABEL_URL = import.meta.env.VITE_API_URL;
+
+export {monthNumToWord, BABEL_URL};
