@@ -50,14 +50,14 @@
 .main-page-stat-description{
     font-weight: bold;
     font-size: 1.2rem;
-    color: #9D9574;
+    color: #F8F4E1;
 }
 
 .main-page-stat-number{
     font-weight: bold;
     display: inline-block;
     font-size: 2rem;
-    color: #F8F4E1;
+    color: #9D9574;
 
     margin: 0;
 }
