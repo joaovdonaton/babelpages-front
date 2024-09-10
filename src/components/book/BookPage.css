@@ -1,0 +1,69 @@
+#book-page-container{
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+}
+
+#book-page-info-container{
+    display: grid;
+    grid-template-columns: 40% 1fr;
+    grid-gap: 2rem;
+
+    width: 80%;
+    margin: 5rem;
+}
+
+#book-page-cover-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: white;
+
+    height: 60vh;
+    overflow: hidden;
+}
+
+#book-page-cover-img{
+    height: 100%;
+}
+
+#book-page-details-container{
+    display: flex;
+    flex-direction: column;
+}
+
+#book-page-details-container > p{
+    color: #A9A8A8;
+    margin: 0.5rem;
+    font-size: 1.2rem;
+}
+
+#book-page-details-container h1{
+    font-weight: 450;
+}
+
+#book-page-details-icons-container{
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: auto;
+}
+
+.book-page-single-icon{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.book-page-single-icon p:first-child{
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.book-page-icon{
+    height: 4rem;
+}

@@ -9,6 +9,7 @@ function useFetchApi<Type>(url: Nullable<string>, options?: {
     isImage?: boolean
 }) {
     const [data, setData] = useState<Type|undefined>();
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
         async function doFetch() {
@@ -30,14 +31,19 @@ function useFetchApi<Type>(url: Nullable<string>, options?: {
             else{
                 setData(URL.createObjectURL(await resp.blob()) as Type);
             }
+
+            setIsLoading(false);
         }
 
         if(url !== null) doFetch();
-        else setData(undefined);
+        else {
+            setData(undefined);
+            setIsLoading(false);
+        }
 
     }, [])
 
-    return { data }
+    return { data, isLoading }
 }
 
 export default useFetchApi;

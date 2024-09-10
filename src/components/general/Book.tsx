@@ -7,14 +7,13 @@ import './Book.css';
 import {formatDate} from "../../util/util.ts";
 import Stars from "./Stars.tsx";
 import useFetchApi from "../../hooks/useFetchApi.ts";
+import {Link} from "react-router-dom";
 
 const Book = ({bookData} : {bookData?: BookSearchResult}) => {
     const {data: coverImage} = useFetchApi<string>(bookData === undefined ? null : bookData.coverURL,
         {isImage: true})
 
-    console.log("coverImage: " + coverImage)
-
-    return <div className="book-container">
+    return <Link className="remove-a-style book-container" to={`/books/${bookData!.id}`}>
         <div className="book-cover-container">
             <img src={
                 // TODO: fix mess
@@ -36,7 +35,7 @@ const Book = ({bookData} : {bookData?: BookSearchResult}) => {
             <Stars rawScore={bookData === undefined ? null : bookData.avgScore} />
         </div>
 
-    </div>
+    </Link>
 }
 
 export default Book;

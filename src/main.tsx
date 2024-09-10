@@ -8,6 +8,7 @@ import './style/global.css';
 import MainPage from "./components/main/MainPage.tsx";
 import Layout from "./components/layout/Layout.tsx";
 import LoginPage from "./components/login/LoginPage.tsx";
+import BookPage from "./components/book/BookPage.tsx";
 
 const router = createBrowserRouter([
     {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
             {
                 path: "/login",
                 element: <LoginPage/>,
+            },
+            {
+                path: "/books/:id",
+                element: <BookPage/>
             }
         ],
         errorElement: <ErrorPage/>
