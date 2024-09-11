@@ -11,17 +11,24 @@ import languageIcon from '../../assets/images/icons/language-icon.png'
 
 import './BookPage.css';
 import {formatDate} from "../../util/util.ts";
+import ReviewDetailsResponse from "../../interfaces/ReviewDetailsResponse.ts";
+import Review from "./Review.tsx";
+
+// TODO: maybe make reviews section paginated (requires backend updates)
 
 const BookPage = () => {
     const {id} = useParams();
-    const {data: bookData, isLoading} = useFetchApi<BookDetailsResponse>(BABEL_URL+"books/"+id)
+    const {data: bookData, isLoading: isBookLoading} =
+        useFetchApi<BookDetailsResponse>(BABEL_URL+"books/"+id)
+    const {data: reviews, isLoading: isReviewsLoading} =
+        useFetchApi<ReviewDetailsResponse[]>(BABEL_URL+"reviews/"+id);
 
-    if(isLoading){
+    if(isBookLoading){
         return <div id="book-page-container">
             <img src={loadingGif} alt="loading gif"/>
         </div>
     }
-    else if(bookData !== undefined && !isLoading){
+    else if(bookData !== undefined && !isBookLoading){
         return (<div id="book-page-container">
             <div id="book-page-info-container">
                 <div id="book-page-cover-container">
@@ -52,6 +59,24 @@ const BookPage = () => {
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <hr className="divider"/>
+
+            <div id="book-page-reviews-container">
+                <h1 style={{alignSelf: "flex-start", fontWeight: "400"}}>Reviews</h1>
+
+                {
+                    isReviewsLoading ?
+                        <img src={loadingGif} alt="loading gif"/>
+                        :
+                        (<>
+                        {// I think it's okay to use the ! here because if isReviewsLoading === false then reviews !== undefined, right???
+                            reviews!.map((review) => (
+                            <Review key={review.id} reviewDetails={review}/>
+                        ))}
+                        </>)
+                }
             </div>
         </div>)
     }

@@ -1,10 +1,8 @@
 import Nullable from "../util/Nullable.ts";
 
-interface ReviewDetailsFull{
+interface ReviewDetailsResponse {
     id: string,
     title: string,
-    bookTitle: string,
-    bookId: string,
     body: string,
     score: number,
     funnyVotes: number,
@@ -18,4 +16,4 @@ interface ReviewDetailsFull{
     }
 }
 
-export default ReviewDetailsFull;
+export default ReviewDetailsResponse;

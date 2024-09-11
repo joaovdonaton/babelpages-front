@@ -6,6 +6,8 @@
     align-items: center;
 }
 
+/* BOOK INFO SECTION */
+
 #book-page-info-container{
     display: grid;
     grid-template-columns: 40% 1fr;
@@ -67,3 +69,16 @@
 .book-page-icon{
     height: 4rem;
 }
+
+/* REVIEWS SECTION */
+
+#book-page-reviews-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 80%;
+    margin: 5rem;
+}
+

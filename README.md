@@ -5,3 +5,8 @@
 ## **Config and Running the project**
 - run `npm install` to install dependencies
 - run `npm run dev` to start running
+
+
+## Important
+- Icons downloaded from [Flaticon](https://www.flaticon.com/) 
+- Background library art by [Chim-Cham](https://www.artstation.com/chim-cham)

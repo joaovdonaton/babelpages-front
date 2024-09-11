@@ -1,4 +1,4 @@
-import ReviewDetailsFull from "../../interfaces/ReviewDetailsFull.ts";
+import ReviewDetailsFullResponse from "../../interfaces/ReviewDetailsFullResponse.ts";
 
 import './ReviewLog.css'
 import Stars from "./Stars.tsx";
@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 
 // TODO: make this into a button to book mentioned in review
 
-const ReviewLog = ({details}: {details: ReviewDetailsFull}) => {
+const ReviewLog = ({details}: {details: ReviewDetailsFullResponse}) => {
     const bookTitleFix = details.bookTitle.length >= 20 ?
         details.bookTitle.substring(0, 20)+'...' : details.bookTitle;
 

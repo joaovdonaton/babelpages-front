@@ -8,7 +8,7 @@ import {Link} from "react-router-dom";
 
 import BookSearchResult from "../../interfaces/BookSearchResult.ts";
 import Book from "../general/Book.tsx";
-import ReviewDetailsFull from "../../interfaces/ReviewDetailsFull.ts";
+import ReviewDetailsFullResponse from "../../interfaces/ReviewDetailsFullResponse.ts";
 import ReviewLog from "../general/ReviewLog.tsx";
 import GeneralStatisticsResponse from "../../interfaces/GeneralStatisticsResponse.ts";
 import useFetchApi from "../../hooks/useFetchApi.ts";
@@ -18,7 +18,7 @@ const MainPage = () => {
     const {data: randomBookData} =
         useFetchApi<BookSearchResult|undefined>(BABEL_URL+"books/random");
     const {data: recentReviews} =
-        useFetchApi<ReviewDetailsFull[]>(BABEL_URL+"reviews/?",
+        useFetchApi<ReviewDetailsFullResponse[]>(BABEL_URL+"reviews/?",
             {queryParams: new URLSearchParams({'orderBy': 'DATE', 'limit': '5', 'page': '0', 'ascDesc': 'ASC'})});
     const { data: statistics } =
         useFetchApi<GeneralStatisticsResponse>(BABEL_URL+'stats/');

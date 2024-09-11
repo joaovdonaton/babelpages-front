@@ -1,0 +1,18 @@
+.review-container{
+    background: #EEEEEE;
+
+    width: 75%;
+    margin: 1rem;
+    padding: 1.25rem;
+}
+
+.review-profile-img{
+    width: 4rem;
+    height: 4rem;
+}
+
+.review-upper-container{
+    display: flex;
+    flex-direction: row;
+    column-gap: 1rem;
+}
