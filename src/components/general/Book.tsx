@@ -1,4 +1,4 @@
-import BookSearchResult from "../../interfaces/BookSearchResult.ts";
+import BookSearchResult from "../../interfaces/response/BookSearchResult.ts";
 
 import placeholderCoverImage from '../../assets/images/replacements/cover-unavailable.png';
 import loadingGif from '../../assets/images/gifs/loading.gif';
@@ -6,11 +6,11 @@ import loadingGif from '../../assets/images/gifs/loading.gif';
 import './Book.css';
 import {formatDate} from "../../util/util.ts";
 import Stars from "./Stars.tsx";
-import useFetchApi from "../../hooks/useFetchApi.ts";
+import useFetch from "../../hooks/useFetch.ts";
 import {Link} from "react-router-dom";
 
 const Book = ({bookData} : {bookData?: BookSearchResult}) => {
-    const {data: coverImage} = useFetchApi<string>(bookData === undefined ? null : bookData.coverURL,
+    const {data: coverImage} = useFetch<string>(bookData === undefined ? null : bookData.coverURL,
         {isImage: true})
 
     return <Link className="remove-a-style book-container" to={`/books/${bookData!.id}`}>

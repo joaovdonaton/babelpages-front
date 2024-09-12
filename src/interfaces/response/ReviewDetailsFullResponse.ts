@@ -1,4 +1,4 @@
-import Nullable from "../util/Nullable.ts";
+import Nullable from "../../util/Nullable.ts";
 
 interface ReviewDetailsFullResponse {
     id: string,

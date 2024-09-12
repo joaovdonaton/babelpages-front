@@ -1,6 +1,6 @@
 import {useParams} from "react-router-dom";
-import useFetchApi from "../../hooks/useFetchApi.ts";
-import BookDetailsResponse from "../../interfaces/BookDetailsResponse.ts";
+import useFetch from "../../hooks/useFetch.ts";
+import BookDetailsResponse from "../../interfaces/response/BookDetailsResponse.ts";
 import {BABEL_URL} from "../../util/constants.ts";
 
 import placeholderCoverImage from '../../assets/images/replacements/cover-unavailable.png';
@@ -11,7 +11,7 @@ import languageIcon from '../../assets/images/icons/language-icon.png'
 
 import './BookPage.css';
 import {formatDate} from "../../util/util.ts";
-import ReviewDetailsResponse from "../../interfaces/ReviewDetailsResponse.ts";
+import ReviewDetailsResponse from "../../interfaces/response/ReviewDetailsResponse.ts";
 import Review from "./Review.tsx";
 
 // TODO: maybe make reviews section paginated (requires backend updates)
@@ -19,9 +19,9 @@ import Review from "./Review.tsx";
 const BookPage = () => {
     const {id} = useParams();
     const {data: bookData, isLoading: isBookLoading} =
-        useFetchApi<BookDetailsResponse>(BABEL_URL+"books/"+id)
+        useFetch<BookDetailsResponse>(BABEL_URL+"books/"+id)
     const {data: reviews, isLoading: isReviewsLoading} =
-        useFetchApi<ReviewDetailsResponse[]>(BABEL_URL+"reviews/"+id);
+        useFetch<ReviewDetailsResponse[]>(BABEL_URL+"reviews/"+id);
 
     if(isBookLoading){
         return <div id="book-page-container">

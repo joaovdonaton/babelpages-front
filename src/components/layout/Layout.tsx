@@ -2,10 +2,10 @@ import Navbar from "./Navbar.tsx";
 import Footer from "./Footer.tsx";
 import {Outlet} from "react-router-dom";
 import {useEffect, useState} from "react";
-import userSelfResponse from "../../interfaces/UserSelfResponse.ts";
+import userSelfResponse from "../../interfaces/response/UserSelfResponse.ts";
 import {UserContext} from "../../context/UserContext.ts";
 import * as Cookies from "js-cookie";
-import UserSelfResponse from "../../interfaces/UserSelfResponse.ts";
+import UserSelfResponse from "../../interfaces/response/UserSelfResponse.ts";
 
 const Layout = () => {
     const [user, setUser] = useState<userSelfResponse|undefined>(undefined);

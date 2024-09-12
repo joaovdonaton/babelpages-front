@@ -1,21 +1,21 @@
 import './LoginPage.css'
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useContext, useState} from "react";
 import * as Cookies from "js-cookie";
-import TokenResponse from "../../interfaces/TokenResponse.ts";
+import TokenResponse from "../../interfaces/response/TokenResponse.ts";
 import {UserContext} from "../../context/UserContext.ts";
-import UserSelfResponse from "../../interfaces/UserSelfResponse.ts";
+import UserSelfResponse from "../../interfaces/response/UserSelfResponse.ts";
 
 /*
-* TODO: login page message after success
-*
-* TODO: make global state or something in order to have page reload and automatically get authenticated user in navbar
+* TODO: MAKE A REDIRECTING... MESSAGE
 * */
 
 const LoginPage = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [loginStatus, setLoginStatus] = useState<string|undefined>();
+
+    const navigate = useNavigate();
 
     const { setUser } = useContext(UserContext);
 
@@ -47,6 +47,10 @@ const LoginPage = () => {
                 const userInfo = (await resp.json()) as UserSelfResponse;
                 setUser(userInfo);
             }
+
+            setTimeout(() => {
+                navigate("/");
+            }, 1000)
         }
     }
 

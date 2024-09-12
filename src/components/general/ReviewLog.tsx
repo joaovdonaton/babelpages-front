@@ -1,4 +1,4 @@
-import ReviewDetailsFullResponse from "../../interfaces/ReviewDetailsFullResponse.ts";
+import ReviewDetailsFullResponse from "../../interfaces/response/ReviewDetailsFullResponse.ts";
 
 import './ReviewLog.css'
 import Stars from "./Stars.tsx";

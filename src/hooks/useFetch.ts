@@ -2,13 +2,15 @@ import {useEffect, useState} from "react";
 import Nullable from "../util/Nullable.ts";
 
 /*
+* For get requests.
+* Generic type is for the response interface.
 * NOTE: for query params the path should end in /?
 * */
-function useFetchApi<Type>(url: Nullable<string>, options?: {
+function useFetch<ResponseType>(url: Nullable<string>, options?: {
     queryParams?: URLSearchParams,
     isImage?: boolean
 }) {
-    const [data, setData] = useState<Type|undefined>();
+    const [data, setData] = useState<ResponseType|undefined>();
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
@@ -26,10 +28,10 @@ function useFetchApi<Type>(url: Nullable<string>, options?: {
             }
 
             if(!options || !options.isImage || !options.isImage) {
-                setData(await resp.json() as Type);
+                setData(await resp.json() as ResponseType);
             }
             else{
-                setData(URL.createObjectURL(await resp.blob()) as Type);
+                setData(URL.createObjectURL(await resp.blob()) as ResponseType);
             }
 
             setIsLoading(false);
@@ -46,4 +48,4 @@ function useFetchApi<Type>(url: Nullable<string>, options?: {
     return { data, isLoading }
 }
 
-export default useFetchApi;
+export default useFetch;

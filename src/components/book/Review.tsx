@@ -1,10 +1,11 @@
 import './Review.css'
-import ReviewDetailsResponse from "../../interfaces/ReviewDetailsResponse.ts";
+import ReviewDetailsResponse from "../../interfaces/response/ReviewDetailsResponse.ts";
 
 import userIcon from '../../assets/images/icons/user-icon.png'
 import Stars from "../general/Stars.tsx";
 
-// TODO: get profile pictures for users, decide on how we fetch that from backend
+// TODO: get profile pictures for users, decide on how we fetch that frcm backend
+// TODO: button for writing your own review if you're authenticated
 
 const Review = ({ reviewDetails }: {reviewDetails: ReviewDetailsResponse}) => (
     <div className="review-container">

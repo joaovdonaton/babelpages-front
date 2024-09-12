@@ -6,22 +6,22 @@ import questionMarkIcon from '../../assets/images/icons/question-icon.png';
 import './MainPage.css'
 import {Link} from "react-router-dom";
 
-import BookSearchResult from "../../interfaces/BookSearchResult.ts";
+import BookSearchResult from "../../interfaces/response/BookSearchResult.ts";
 import Book from "../general/Book.tsx";
-import ReviewDetailsFullResponse from "../../interfaces/ReviewDetailsFullResponse.ts";
+import ReviewDetailsFullResponse from "../../interfaces/response/ReviewDetailsFullResponse.ts";
 import ReviewLog from "../general/ReviewLog.tsx";
-import GeneralStatisticsResponse from "../../interfaces/GeneralStatisticsResponse.ts";
-import useFetchApi from "../../hooks/useFetchApi.ts";
+import GeneralStatisticsResponse from "../../interfaces/response/GeneralStatisticsResponse.ts";
+import useFetch from "../../hooks/useFetch.ts";
 import {BABEL_URL} from "../../util/constants.ts";
 
 const MainPage = () => {
     const {data: randomBookData} =
-        useFetchApi<BookSearchResult|undefined>(BABEL_URL+"books/random");
+        useFetch<BookSearchResult|undefined>(BABEL_URL+"books/random");
     const {data: recentReviews} =
-        useFetchApi<ReviewDetailsFullResponse[]>(BABEL_URL+"reviews/?",
+        useFetch<ReviewDetailsFullResponse[]>(BABEL_URL+"reviews/?",
             {queryParams: new URLSearchParams({'orderBy': 'DATE', 'limit': '5', 'page': '0', 'ascDesc': 'ASC'})});
     const { data: statistics } =
-        useFetchApi<GeneralStatisticsResponse>(BABEL_URL+'stats/');
+        useFetch<GeneralStatisticsResponse>(BABEL_URL+'stats/');
 
     return (<div id={"main-page-container"}>
         <div id="main-page-banner-container">
