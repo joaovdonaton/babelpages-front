@@ -17,11 +17,9 @@ function useFetchPost<ResponseType, BodyType>(url: string) {
             }
         });
 
+        setStatusCode(response.status);
         if(!response.ok){
-            setStatusCode(response.status);
-            console.log("Status code: " + response.status);
-            console.log("Body: " + JSON.stringify(await response.json()));
-            throw new Error("Failed to post to " + url)
+            console.log("Non 200 status code: " + response.status + ", while fetching " + url);
         }
 
         const data = await response.json() as ResponseType;

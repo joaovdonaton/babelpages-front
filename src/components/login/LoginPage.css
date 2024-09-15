@@ -74,6 +74,10 @@
     color: blue;
 }
 
-#login-status-text{
+#login-status-text-error{
     color: red;
+}
+
+#login-status-text-success{
+    color: green;
 }

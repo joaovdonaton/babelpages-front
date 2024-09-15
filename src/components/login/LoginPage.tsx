@@ -6,14 +6,13 @@ import TokenResponse from "../../interfaces/response/TokenResponse.ts";
 import {UserContext} from "../../context/UserContext.ts";
 import UserSelfResponse from "../../interfaces/response/UserSelfResponse.ts";
 
-/*
-* TODO: MAKE A REDIRECTING... MESSAGE
-* */
-
 const LoginPage = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [loginStatus, setLoginStatus] = useState<string|undefined>();
+    const [loginStatus, setLoginStatus] = useState<{status: string, type: "SUCCESS" | "FAILURE"}>({
+        status: ' ',
+        type: "FAILURE"
+    });
 
     const navigate = useNavigate();
 
@@ -29,7 +28,7 @@ const LoginPage = () => {
         })
 
         if(!resp.ok){
-            setLoginStatus("Failed to authenticate. Invalid Credentials");
+            setLoginStatus({status: "Failed to authenticate. Invalid Credentials", type: "FAILURE"});
         }
         else{
             const token = await resp.json() as TokenResponse;
@@ -48,6 +47,7 @@ const LoginPage = () => {
                 setUser(userInfo);
             }
 
+            setLoginStatus({status: "Redirecting...", type: "SUCCESS"});
             setTimeout(() => {
                 navigate("/");
             }, 1000)
@@ -58,7 +58,7 @@ const LoginPage = () => {
         <div id="login-panel-container">
             <b id="login-title-text">SIGN IN</b>
 
-            {loginStatus && <p id="login-status-text">{loginStatus}</p>}
+            <p id={loginStatus.type === "SUCCESS" ? "login-status-text-success": "login-status-text-error"}>{loginStatus.status}</p>
 
             <p className="login-label-text">Username</p>
             <input className="login-input" type="text" value={username}

@@ -1,16 +1,11 @@
 import './RegisterPage.css'
 import './LoginPage.css'
-import {Link} from "react-router-dom";
-import {useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
 import RegisterFormData from "../../interfaces/RegisterFormData.ts";
 import useFetchPost from "../../hooks/useFetchPost.ts";
 import UserBasicResponse from "../../interfaces/response/UserBasicResponse.ts";
 import {BABEL_URL} from "../../util/constants.ts";
-
-/*
-* TODO: make nice little thing on success
-* TODO: error for username already exists (maybe change backend)
-* */
 
 const RegisterPage = () => {
     const [formData, setFormData] = useState<RegisterFormData>({
@@ -20,45 +15,61 @@ const RegisterPage = () => {
         password: '',
         confirmPassword: ''
     })
-    const [registerStatus, setRegisterStatus] = useState<string>(' ');
+    const [registerStatus, setRegisterStatus] = useState<{status: string, type: "SUCCESS" | "FAILURE"}>(
+        {
+            type: 'FAILURE',
+            status: ' '
+        }
+    );
 
-    const { doPost, responseBody} = useFetchPost<UserBasicResponse, RegisterFormData>(BABEL_URL + 'users/')
+    const { doPost, statusCode} = useFetchPost<UserBasicResponse, RegisterFormData>(BABEL_URL + 'users/')
+    const navigate = useNavigate();
 
     function handleSubmit(){
         if(formData.password !== formData.confirmPassword){
-            setRegisterStatus('Passwords don\'t match');
+            setRegisterStatus({status: 'Passwords don\'t match', type: "FAILURE"});
             return;
         }
 
         // validate form (as per backend specification, see https://github.com/joaovdonaton/babel-pages-bookstore/blob/master/src/main/java/edu/kent/babelpages/rest/users/DTO/UserCreationDTO.java)
         if(formData.username.length < 6 || formData.username.length > 30){
-            setRegisterStatus('Username should be between 6 and 30 characters');
+            setRegisterStatus({status: 'Username should be between 6 and 30 characters', type: "FAILURE"});
             return;
         }
 
         if(formData.firstName.length < 2 || formData.firstName.length > 30){
-            setRegisterStatus('First name should be between 2 and 30 characters');
+            setRegisterStatus({status: 'First name should be between 2 and 30 characters', type: "FAILURE"});
             return;
         }
 
         if(formData.lastName.length < 2 || formData.lastName.length > 30){
-            setRegisterStatus('Last name should be between 2 and 30 characters');
+            setRegisterStatus({status: 'Last name should be between 2 and 30 characters', type: "FAILURE"})
             return;
         }
 
         if(formData.password.length < 8 || formData.password.length > 128){
-            setRegisterStatus('Password should be between 8 and 128 characters');
+            setRegisterStatus({status: 'Password should be between 8 and 128 characters', type: "FAILURE"})
             return;
         }
 
         doPost(formData)
     }
 
+    useEffect(() => {
+        if(statusCode === 409 /* conflict */) setRegisterStatus({status: "Username already exists", type: "FAILURE"});
+        else if(statusCode === 201 /* created */) {
+            setRegisterStatus({status: "Created! Redirecting to login..", type: "SUCCESS"});
+            setTimeout(() => {
+                navigate("/login");
+            }, 2500)
+        }
+    }, [statusCode]);
+
     return (<div id="login-page-container">
         <div id="login-panel-container">
             <b id="login-title-text">REGISTER</b>
 
-            {registerStatus && <p id="login-status-text">{registerStatus}</p>}
+            <p id={registerStatus.type === "SUCCESS" ? "login-status-text-success" : "login-status-text-error"}>{registerStatus.status}</p>
 
             <p className="login-label-text">Username</p>
             <input className="login-input" type="text" value={formData.username}
