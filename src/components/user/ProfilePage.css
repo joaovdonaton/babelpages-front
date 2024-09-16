@@ -1,0 +1,27 @@
+#profile-page-panel{
+    display: flex;
+    flex-direction: column;
+
+    background-color: #EEEEEE;
+    padding: 2rem 6rem;
+    border-radius: 0.4rem;
+
+    width: 50%;
+    height: 65%;
+}
+
+#profile-img{
+    border-radius: 50%;
+    border: 2px solid black;
+    width: 15rem;
+    height: 15rem;
+}
+
+#profile-page-upper {
+    display: flex;
+    column-gap: 3rem;
+}
+
+#profile-page-flag{
+    width: 4rem;
+}

@@ -4,6 +4,7 @@ import './ErrorPage.css'
 import {Fragment} from "react";
 
 // TODO: decide on design for this page
+// TODO: make errors pretty, handle all kinds of errors
 
 const ErrorPage = () => {
     const error = useRouteError();

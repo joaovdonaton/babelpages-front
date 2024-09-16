@@ -1,6 +1,6 @@
 import Nullable from "../../util/Nullable.ts";
 
-interface UserSelfResponse {
+interface UserWithProfileResponse {
     id: string,
     username: string,
     role: string,
@@ -13,4 +13,4 @@ interface UserSelfResponse {
     }
 }
 
-export default UserSelfResponse;
+export default UserWithProfileResponse;

@@ -2,10 +2,10 @@ import Navbar from "./Navbar.tsx";
 import Footer from "./Footer.tsx";
 import {Outlet} from "react-router-dom";
 import {useEffect, useState} from "react";
-import userSelfResponse from "../../interfaces/response/UserSelfResponse.ts";
+import userSelfResponse from "../../interfaces/response/UserWithProfileResponse.ts";
 import {UserContext} from "../../context/UserContext.ts";
 import * as Cookies from "js-cookie";
-import UserSelfResponse from "../../interfaces/response/UserSelfResponse.ts";
+import UserWithProfileResponse from "../../interfaces/response/UserWithProfileResponse.ts";
 
 const Layout = () => {
     const [user, setUser] = useState<userSelfResponse|undefined>(undefined);
@@ -22,7 +22,7 @@ const Layout = () => {
                     });
 
                 if(resp.ok){
-                    const userInfo = (await resp.json()) as UserSelfResponse;
+                    const userInfo = (await resp.json()) as UserWithProfileResponse;
                     setUser(userInfo);
                 }
         }

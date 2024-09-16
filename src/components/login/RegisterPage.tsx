@@ -32,6 +32,16 @@ const RegisterPage = () => {
         }
 
         // validate form (as per backend specification, see https://github.com/joaovdonaton/babel-pages-bookstore/blob/master/src/main/java/edu/kent/babelpages/rest/users/DTO/UserCreationDTO.java)
+        if(!/^[a-zA-Z0-9]+$/.test(formData.username)){
+            setRegisterStatus({status: 'Username field contains invalid characters', type: "FAILURE"});
+            return;
+        }
+
+        if(!/^[a-zA-Z0-9 ]+$/.test(formData.firstName) || !/^[a-zA-Z0-9 ]+$/.test(formData.lastName)){
+            setRegisterStatus({status: 'Name field contains invalid characters', type: "FAILURE"});
+            return;
+        }
+
         if(formData.username.length < 6 || formData.username.length > 30){
             setRegisterStatus({status: 'Username should be between 6 and 30 characters', type: "FAILURE"});
             return;

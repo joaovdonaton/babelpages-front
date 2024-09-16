@@ -12,6 +12,7 @@ function useFetch<ResponseType>(url: Nullable<string>, options?: {
 }) {
     const [data, setData] = useState<ResponseType|undefined>();
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [statusCode, setStatusCode] = useState<number|undefined>(undefined);
 
     useEffect(() => {
         async function doFetch() {
@@ -23,6 +24,7 @@ function useFetch<ResponseType>(url: Nullable<string>, options?: {
 
             const resp = await fetch( fullUrl);
 
+            setStatusCode(resp.status)
             if (!resp.ok) {
                 throw new Error('Failed to fetch data at api path: \'  ' + url + '  \'');
             }
@@ -45,7 +47,7 @@ function useFetch<ResponseType>(url: Nullable<string>, options?: {
 
     }, [])
 
-    return { data, isLoading }
+    return { data, isLoading, statusCode }
 }
 
 export default useFetch;

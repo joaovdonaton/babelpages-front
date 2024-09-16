@@ -4,7 +4,7 @@ import {useContext, useState} from "react";
 import * as Cookies from "js-cookie";
 import TokenResponse from "../../interfaces/response/TokenResponse.ts";
 import {UserContext} from "../../context/UserContext.ts";
-import UserSelfResponse from "../../interfaces/response/UserSelfResponse.ts";
+import UserWithProfileResponse from "../../interfaces/response/UserWithProfileResponse.ts";
 
 const LoginPage = () => {
     const [username, setUsername] = useState('');
@@ -43,7 +43,7 @@ const LoginPage = () => {
                 });
 
             if(resp.ok){
-                const userInfo = (await resp.json()) as UserSelfResponse;
+                const userInfo = (await resp.json()) as UserWithProfileResponse;
                 setUser(userInfo);
             }
 
