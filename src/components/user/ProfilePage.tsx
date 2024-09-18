@@ -9,12 +9,10 @@ import loadingGif from '../../assets/images/gifs/loading.gif';
 import userIcon from '../../assets/images/icons/user-icon.png'
 import unkownFlag from '../../assets/images/replacements/unkown-flag.png'
 import ReviewDetailsFullResponse from "../../interfaces/response/ReviewDetailsFullResponse.ts";
-import Review from "../book/Review.tsx";
+import ReviewSummary from "./ReviewSummary.tsx";
 
 /*
-* TODO: implement user page from figma
 * TODO: if user is currently authenticated (aka on self page), add options to change pfp, bio or whatever
-* TODO: show user's recent reviews
 * */
 
 const ProfilePage = () => {
@@ -76,7 +74,7 @@ const ProfilePage = () => {
                     <div>
                         <h2>Recent Reviews</h2>
                         {reviewsData && reviewsData.map((r) => {
-                            return <Review key={r.id} reviewDetails={r} reviewType="PROFILE"/>
+                            return <ReviewSummary key={r.id} reviewDetails={r}/>
                         })}
                     </div>
                 </>

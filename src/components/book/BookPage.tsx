@@ -11,17 +11,18 @@ import languageIcon from '../../assets/images/icons/language-icon.png'
 
 import './BookPage.css';
 import {formatDate} from "../../util/util.ts";
-import ReviewDetailsResponse from "../../interfaces/response/ReviewDetailsResponse.ts";
 import Review from "./Review.tsx";
+import ReviewDetailsFullResponse from "../../interfaces/response/ReviewDetailsFullResponse.ts";
 
 // TODO: maybe make reviews section paginated (requires backend updates)
+// TODO: button for writing your own review if you're authenticated
 
 const BookPage = () => {
     const {id} = useParams();
     const {data: bookData, isLoading: isBookLoading} =
         useFetch<BookDetailsResponse>(BABEL_URL+"books/"+id)
     const {data: reviews, isLoading: isReviewsLoading} =
-        useFetch<ReviewDetailsResponse[]>(BABEL_URL+"reviews/"+id);
+        useFetch<ReviewDetailsFullResponse[]>(BABEL_URL+"reviews/"+id);
 
     if(isBookLoading){
         return <div id="book-page-container">
@@ -73,7 +74,7 @@ const BookPage = () => {
                         (<>
                         {// I think it's okay to use the ! here because if isReviewsLoading === false then reviews !== undefined, right???
                             reviews!.map((review) => (
-                            <Review key={review.id} reviewDetails={review} reviewType="MAIN"/>
+                            <Review key={review.id} reviewDetails={review}/>
                         ))}
                         </>)
                 }

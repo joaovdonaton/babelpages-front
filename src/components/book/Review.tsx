@@ -1,20 +1,37 @@
 import './Review.css'
 
 import userIcon from '../../assets/images/icons/user-icon.png'
+import loadingGif from '../../assets/images/gifs/loading.gif'
 import Stars from "../general/Stars.tsx";
 import ReviewDetailsFullResponse from "../../interfaces/response/ReviewDetailsFullResponse.ts";
+import useFetch from "../../hooks/useFetch.ts";
+import UserWithProfileResponse from "../../interfaces/response/UserWithProfileResponse.ts";
+import {BABEL_URL} from "../../util/constants.ts";
+import {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 
-// TODO: get profile pictures for users, decide on how we fetch that frcm backend
-// TODO: button for writing your own review if you're authenticated
 
-const Review = ({ reviewDetails, reviewType }: {reviewDetails: ReviewDetailsFullResponse, reviewType: 'PROFILE' | 'MAIN'}) => {
-    if(reviewType === 'MAIN') {
+const Review = ({ reviewDetails }: {reviewDetails: ReviewDetailsFullResponse}) => {
+    const { data: userData, isLoading } = useFetch<UserWithProfileResponse>(BABEL_URL + "users/"+reviewDetails.user.username)
+    const [profilePicture, setProfilePicture] = useState<string>(userIcon);
+
+    useEffect(() => {
+        if(!isLoading && userData !== undefined){
+            setProfilePicture(userData.profile.profilePictureUrl === null ? userIcon : userData.profile.profilePictureUrl )
+        }
+    }, [isLoading]);
+
         return (<div className="review-container">
             <div className="review-upper-container">
-                <img className="review-profile-img" src={userIcon} alt="placeholder profile picture"/>
+
+                <Link className="remove-a-style" to={`/users/${reviewDetails.user.username}`}>
+                    <img className="review-profile-img" src={isLoading ? loadingGif : profilePicture} alt="profile picture"/>
+                </Link>
                 <div>
                     <h2 style={{fontWeight: "400", margin: "0"}}>{reviewDetails.title}</h2>
-                    <p style={{color: "#827777", marginTop: "0.25rem"}}>Written by {reviewDetails.user.username}</p>
+                    <Link className="remove-a-style" to={`/users/${reviewDetails.user.username}`}>
+                        <p style={{color: "#827777", marginTop: "0.25rem"}}>Written by {reviewDetails.user.username}</p>
+                    </Link>
                 </div>
                 <div style={{marginLeft: "auto"}}>
                     <Stars rawScore={reviewDetails.score}/>
@@ -26,18 +43,6 @@ const Review = ({ reviewDetails, reviewType }: {reviewDetails: ReviewDetailsFull
                 </p>
             </div>
         </div>)
-    }
-    else{
-        return (<div className="review-container-small">
-            <div>
-                <h3>{reviewDetails.bookTitle}</h3>
-                <p style={{'color': "#717171", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis"}}>{reviewDetails.body}</p>
-            </div>
-            <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-               <Stars rawScore={reviewDetails.score}/>
-            </div>
-        </div>)
-    }
 };
 
 export default Review;
