@@ -73,7 +73,7 @@ const BookPage = () => {
                         (<>
                         {// I think it's okay to use the ! here because if isReviewsLoading === false then reviews !== undefined, right???
                             reviews!.map((review) => (
-                            <Review key={review.id} reviewDetails={review}/>
+                            <Review key={review.id} reviewDetails={review} reviewType="MAIN"/>
                         ))}
                         </>)
                 }

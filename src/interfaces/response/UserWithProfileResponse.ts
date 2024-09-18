@@ -4,7 +4,7 @@ interface UserWithProfileResponse {
     id: string,
     username: string,
     role: string,
-    createdAt: number,
+    createdAt: number, // unix time in ms
     profile: {
         profilePictureUrl: Nullable<string>,
         country: Nullable<string>,
