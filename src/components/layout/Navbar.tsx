@@ -3,20 +3,33 @@ import bookLogo from '../../assets/images/book-logo.png';
 import searchIcon from '../../assets/images/icons/search-icon.png';
 import sidenavIcon from '../../assets/images/icons/sidenav-icon.png';
 import sidenavCloseIcon from '../../assets/images/icons/sidenav-close-icon.png';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import React, {Fragment, useContext, useEffect, useState} from "react";
 
 import '../../style/global.css'
 import {UserContext} from "../../context/UserContext.ts";
+import * as Cookies from "js-cookie";
 
 const Navbar = () => {
     const [isSidebarOpen, setSidebarOpen] = React.useState(false);
+    const [isProfileNavOpen, setProfileNavOpen] = React.useState(false);
     const [username, setUsername] = useState<string|undefined>(undefined);
+    const navigate = useNavigate();
 
     const { user } = useContext(UserContext);
 
     const switchSidebarState = () => {
         setSidebarOpen(!isSidebarOpen);
+    }
+
+    const switchProfileNavState = () => {
+        setProfileNavOpen(!isProfileNavOpen);
+    }
+
+    const logout = () => {
+        Cookies.default.remove("token");
+        navigate("/")
+        location.reload();
     }
 
     useEffect(() => {
@@ -51,9 +64,9 @@ const Navbar = () => {
                             Reviews
                         </Link>
                         {username !== undefined ?
-                            <Link to={"/users/"+username} className="remove-a-style navigation-link-button">
+                            <a className="remove-a-style navigation-link-button" onClick={switchProfileNavState}>
                                 {username}
-                            </Link>
+                            </a>
                             :
                         <Link to="/login" className="remove-a-style navigation-link-button">
                             Sign In
@@ -65,8 +78,14 @@ const Navbar = () => {
                     </a>
                 </div>
 
-                {/*side navbar (initially hidden)*/}
-                {isSidebarOpen && <div id="background-opacity"></div>}
+                {(isSidebarOpen || isProfileNavOpen) && <div id="background-opacity" onClick={
+                    () => {
+                        if(isProfileNavOpen) switchProfileNavState();
+                        if(isSidebarOpen) switchSidebarState();
+                    }
+                }></div>}
+
+                {/*side navbar (initially hidden, on left side)*/}
                 <div id="sidenav-container" className={ isSidebarOpen ? 'sidenav-open' : 'sidenav-closed'}>
                     <img src={sidenavCloseIcon} alt={"close button"} id="sidenav-close-button" onClick={switchSidebarState}/>
 
@@ -84,6 +103,15 @@ const Navbar = () => {
                             Sign In
                         </Link>
                     </div>
+                </div>
+
+                {/* profile nav (right side) */}
+                <div id="profile-nav-container" className={isProfileNavOpen ? 'profile-nav-open' : 'sidenav-closed'}>
+                    <img src={sidenavCloseIcon} alt={"close button"}
+                         className={`profile-nav-close-button ${isProfileNavOpen ? 'profile-nav-close-button-visible' : ''}`}
+                         onClick={switchProfileNavState}/>
+                    <Link to={`/users/${username}`} className="remove-a-style profile-nav-button" onClick={switchProfileNavState}>My Profile</Link>
+                    <a className="remove-a-style profile-nav-button" onClick={logout}>Sign Out</a>
                 </div>
             </div>
         </Fragment>

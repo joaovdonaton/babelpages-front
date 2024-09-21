@@ -148,7 +148,7 @@
 }
 
 #background-opacity{
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     z-index: 99;
@@ -175,5 +175,61 @@
 }
 
 .navigation-link-button:hover{
+    color: #dfdad3;
+    cursor: pointer;
+}
+
+/* PROFILE NAVBAR NAVIGATION */
+#profile-nav-container{
+    background-color: #e1c16e;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 100;
+
+    transition: 0.6s;
+
+    overflow: hidden;
+}
+
+.profile-nav-open{
+    width: 20%;
+    padding: 2rem 5rem;
+}
+
+.profile-nav-close-button{
+    height: 3rem;
+    position: absolute;
+    top: 3rem;
+    right: 3rem;
+
+    opacity: 0;
+    transition: 0.75s;
+}
+
+.profile-nav-close-button:hover{
+    cursor: pointer;
+    scale: 1.2;
+}
+
+.profile-nav-close-button-visible{
+    opacity: 1;
+}
+
+.profile-nav-button{
+    display: block;
+    color: #F8F4E1;
+    font-weight: bold;
+    font-size: 2rem;
+    padding: 0.3rem;
+
+    transition: 0.3s;
+
+    margin-bottom: 2rem;
+}
+
+.profile-nav-button:hover{
+    cursor: pointer;
     color: #dfdad3;
 }
