@@ -11,6 +11,7 @@ import LoginPage from "./components/login/LoginPage.tsx";
 import BookPage from "./components/book/BookPage.tsx";
 import RegisterPage from "./components/login/RegisterPage.tsx";
 import ProfilePage from "./components/user/ProfilePage.tsx";
+import EditProfilePage from "./components/user/EditProfilePage.tsx";
 
 const router = createBrowserRouter([
     {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
             {
                 path: "/users/:username",
                 element: <ProfilePage/>
+            },
+            {
+                path: "/users/:username/edit",
+                element: <EditProfilePage/>
             }
         ],
         errorElement: <ErrorPage/>

@@ -18,10 +18,4 @@ function formatDate(year: number, month: Nullable<number>, day: Nullable<number>
     return `${day} ${monthNumToWord.get(month)}, ${year}`
 }
 
-// // round score and put in range of 0-5, for our stars
-// function roundScore(score: number): number{
-//     return Math.round(score)/2;
-// }
-
-
 export {formatDate};

@@ -1,19 +1,16 @@
 import './ProfilePage.css'
 import '../login/LoginPage.css'
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import useFetch from "../../hooks/useFetch.ts";
 import UserWithProfileResponse from "../../interfaces/response/UserWithProfileResponse.ts";
 import {BABEL_URL, countryCodeToName} from "../../util/constants.ts";
-import {useEffect} from "react";
+import {useContext, useEffect} from "react";
 import loadingGif from '../../assets/images/gifs/loading.gif';
 import userIcon from '../../assets/images/icons/user-icon.png'
 import unkownFlag from '../../assets/images/replacements/unkown-flag.png'
 import ReviewDetailsFullResponse from "../../interfaces/response/ReviewDetailsFullResponse.ts";
 import ReviewSummary from "./ReviewSummary.tsx";
-
-/*
-* TODO: if user is currently authenticated (aka on self page), add options to change pfp, bio or whatever
-* */
+import {UserContext} from "../../context/UserContext.ts";
 
 const ProfilePage = () => {
     const { username } = useParams();
@@ -21,6 +18,8 @@ const ProfilePage = () => {
         = useFetch<UserWithProfileResponse>(
         BABEL_URL+"users/"+username
     );
+
+    const {user} = useContext(UserContext);
 
     // username! in the query param is a temporary fix for when we access a username that is invalid
     const {data: reviewsData}
@@ -61,10 +60,15 @@ const ProfilePage = () => {
                                 <p>{userData!.profile.country ? countryCodeToName[userData!.profile.country] : "Unkown Location"}</p>
                             </div>
                         </div>
-                        <div style={{marginLeft: "auto"}}>
+                        <div style={{marginLeft: "auto", display: "flex", flexDirection: "column", alignItems: "center"}}>
                             <p id="profile-page-new-icon">
                                 {userData!.createdAt > (Date.now() - 7 * 24 * 60 * 60 * 1000) /* AKA a week ago */ ? "New User" : "Member"}
                             </p>
+                            {(username === user?.username) &&
+                            <Link to={"./edit"} className="remove-a-style" id="profile-page-edit-icon">
+                                Edit
+                            </Link>
+                            }
                         </div>
                     </div>
                     <div>

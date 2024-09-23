@@ -1,0 +1,41 @@
+#edit-page-panel{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    background-color: #EEEEEE;
+    padding: 2rem 6rem;
+    border-radius: 0.4rem;
+
+    width: 50%;
+    min-height: 65%;
+}
+
+#edit-page-panel label{
+    font-size: 1.2rem;
+}
+
+#edit-page-panel input, textarea, select, select option{
+    padding: 0.4rem;
+}
+
+#edit-page-upload::file-selector-button{
+    color: blue;
+    background-color: white;
+    border-radius: 0.2rem;
+    border: black solid 1px;
+    padding: 0.25rem 0.5rem;
+}
+
+#edit-page-save-button{
+    background-color: #0de80d;
+    font-weight: bold;
+    align-self: center;
+    width: 10rem;
+    padding: 0.4rem 0.25rem;
+    border-radius: 0.75rem;
+}
+
+#edit-page-save-button:hover{
+    background-color: #17c317;
+}
