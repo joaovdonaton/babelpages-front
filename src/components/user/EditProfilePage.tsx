@@ -1,8 +1,8 @@
 import '../login/LoginPage.css'
 import './EditProfilePage.css'
 import './ProfilePage.css'
-import {useParams} from "react-router-dom";
-import {ChangeEvent, useContext, useState} from "react";
+import {useNavigate, useParams} from "react-router-dom";
+import {ChangeEvent, useContext, useEffect, useState} from "react";
 import {UserContext} from "../../context/UserContext.ts";
 import userIcon from "../../assets/images/icons/user-icon.png";
 import GenericClientError from "../../util/GenericClientError.ts";
@@ -10,26 +10,30 @@ import {BABEL_URL, countryCodeToName} from "../../util/constants.ts";
 import useFetchMultipart from "../../hooks/useFetchMultipart.ts";
 import ProfileUpdateFields from "../../interfaces/body/ProfileUpdateFields.ts";
 import * as Cookies from "js-cookie";
+import UserWithProfileResponse from "../../interfaces/response/UserWithProfileResponse.ts";
+import {generateImageURL} from "../../util/util.ts";
 
 /*
 * TODO:
-*  - Fix the case where we omit fields (backend doesn't accept "", we must omit for patch)
 *  - Error messages for invalid length for bio/occupation
-*  - Fetch new data for current profile.
 *  - Make sure we can clear the Profile Picture
 *  - Flesh out details
-*  - Test for all kinds of use cases and combinations
 * */
 
 const EditProfilePage = () => {
     const { username } = useParams();
-    const { user } = useContext(UserContext);
+    const navigate = useNavigate();
+    const { user, setUser } = useContext(UserContext);
 
     const [ profileImg, setProfileImg ] = useState<undefined|File>(undefined);
     const [formData, setFormData] = useState<{bio: string, country: string, occupation: string}>({
         bio: user!.profile.bio == null ? "" : user!.profile.bio,
         country: user!.profile.country == null ? "" : user!.profile.country,
         occupation: user!.profile.occupation == null ? "" : user!.profile.occupation,
+    })
+    const [formStatus, setFormStatus] = useState<{status: string, type: "SUCCESS" | "FAILURE"}>({
+        status: "",
+        type: "SUCCESS",
     })
 
     const { doRequest, statusCode} = useFetchMultipart<ProfileUpdateFields>(
@@ -44,7 +48,24 @@ const EditProfilePage = () => {
 
     function handleSave(){
         doRequest({name: "profile", content: formData}, profileImg !== undefined ? {name: "file", content: profileImg} : undefined)
+
+        setFormStatus({"status": "Redirecting...", type: "SUCCESS"})
+
+        setTimeout(() => {
+            navigate(`/users/${user!.username}`);
+        }, 1500)
     }
+
+    useEffect(() => {
+        async function updateIf204(status: number|undefined){
+            if(status === 204){ // means we successfully updated fields in profile
+                const r = await fetch(BABEL_URL+"users/self", {headers: {"Authorization": "Bearer " + Cookies.default.get("token")}})
+                if(r.ok) setUser(await r.json() as UserWithProfileResponse);
+            }
+        }
+
+        updateIf204(statusCode);
+    }, [statusCode]);
 
     if(username !== user?.username){
         throw new GenericClientError("FORBIDDEN", "You do not have access to this page.");
@@ -53,11 +74,14 @@ const EditProfilePage = () => {
     return (<div id="login-page-container">
         <div id="edit-page-panel">
             <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                <img id="profile-img" src={(!profileImg ? undefined : URL.createObjectURL(profileImg) )|| user!.profile.profilePictureUrl || userIcon}
+                <img id="profile-img" src={(!profileImg ? undefined : URL.createObjectURL(profileImg) )|| generateImageURL(user!.profile.profilePictureUrl) || userIcon}
                      alt="profile picture"/>
 
                 <input id="edit-page-upload" type="file" accept="image/png, image/jpg" onChange={changeFile}/>
             </div>
+
+            <p style={{color: formStatus.type === "SUCCESS" ? "green": "red", textAlign: "center"}} >{formStatus.status}</p>
+
 
             <label>Bio</label>
             <textarea style={{resize: "vertical"}} placeholder="Tell the world about the things you love!"

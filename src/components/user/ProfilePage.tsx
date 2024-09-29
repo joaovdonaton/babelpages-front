@@ -11,6 +11,7 @@ import unkownFlag from '../../assets/images/replacements/unkown-flag.png'
 import ReviewDetailsFullResponse from "../../interfaces/response/ReviewDetailsFullResponse.ts";
 import ReviewSummary from "./ReviewSummary.tsx";
 import {UserContext} from "../../context/UserContext.ts";
+import {generateImageURL} from "../../util/util.ts";
 
 const ProfilePage = () => {
     const { username } = useParams();
@@ -42,7 +43,7 @@ const ProfilePage = () => {
                 :
                 <>
                     <div id="profile-page-upper">
-                        <img id="profile-img" src={userData!.profile.profilePictureUrl || userIcon}
+                        <img id="profile-img" src={generateImageURL(user!.profile.profilePictureUrl) || userIcon}
                              alt="profile picture"/>
                         <div style={{display: "flex", flexDirection: "column", alignItems: "start"}}>
                             <div>

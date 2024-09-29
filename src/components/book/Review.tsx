@@ -9,6 +9,7 @@ import UserWithProfileResponse from "../../interfaces/response/UserWithProfileRe
 import {BABEL_URL} from "../../util/constants.ts";
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
+import {generateImageURL} from "../../util/util.ts";
 
 
 const Review = ({ reviewDetails }: {reviewDetails: ReviewDetailsFullResponse}) => {
@@ -17,7 +18,7 @@ const Review = ({ reviewDetails }: {reviewDetails: ReviewDetailsFullResponse}) =
 
     useEffect(() => {
         if(!isLoading && userData !== undefined){
-            setProfilePicture(userData.profile.profilePictureUrl === null ? userIcon : userData.profile.profilePictureUrl )
+            setProfilePicture(userData.profile.profilePictureUrl === null ? userIcon : generateImageURL(userData.profile.profilePictureUrl))
         }
     }, [isLoading]);
 
