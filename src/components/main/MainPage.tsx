@@ -13,13 +13,23 @@ import ReviewLog from "../general/ReviewLog.tsx";
 import GeneralStatisticsResponse from "../../interfaces/response/GeneralStatisticsResponse.ts";
 import useFetch from "../../hooks/useFetch.ts";
 import {BABEL_URL} from "../../util/constants.ts";
+import {useMemo} from "react";
 
 const MainPage = () => {
     const {data: randomBookData} =
         useFetch<BookSearchResult|undefined>(BABEL_URL+"books/random");
+
+    /* We want to Memoize this object, queryParams is a dependency in the useEffect in the hook useFetch,
+    so if we pass it normally a new reference gets created on each rerender, even if the object's properties
+    don't change. This triggers an infinite loop.
+
+    useMemo here simply gives us our object reference once at the start on initial mount, and does not change again
+    * */
+    const paramsForReviews = useMemo(() => ({'orderBy': 'DATE', 'limit': '5', 'page': '0', 'ascDesc': 'ASC'}), []);
+
     const {data: recentReviews} =
         useFetch<ReviewDetailsFullResponse[]>(BABEL_URL+"reviews/?",
-            {queryParams: new URLSearchParams({'orderBy': 'DATE', 'limit': '5', 'page': '0', 'ascDesc': 'ASC'})});
+            {queryParams: paramsForReviews});
     const { data: statistics } =
         useFetch<GeneralStatisticsResponse>(BABEL_URL+'stats/');
 

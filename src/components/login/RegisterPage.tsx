@@ -2,8 +2,8 @@ import './RegisterPage.css'
 import './LoginPage.css'
 import {Link, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
-import RegisterFormData from "../../interfaces/RegisterFormData.ts";
-import useFetchPost from "../../hooks/useFetchPost.ts";
+import RegisterFormData from "../../interfaces/body/RegisterFormData.ts";
+import useFetchWithBody from "../../hooks/useFetchWithBody.ts";
 import UserBasicResponse from "../../interfaces/response/UserBasicResponse.ts";
 import {BABEL_URL} from "../../util/constants.ts";
 
@@ -22,7 +22,7 @@ const RegisterPage = () => {
         }
     );
 
-    const { doPost, statusCode} = useFetchPost<UserBasicResponse, RegisterFormData>(BABEL_URL + 'users/')
+    const { doPost, statusCode} = useFetchWithBody<UserBasicResponse, RegisterFormData>(BABEL_URL + 'users/')
     const navigate = useNavigate();
 
     function handleSubmit(){

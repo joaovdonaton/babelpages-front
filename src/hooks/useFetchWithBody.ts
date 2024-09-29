@@ -4,13 +4,13 @@ import Nullable from "../util/Nullable.ts";
 /*
 * ResponseType is for response body. BodyType is for request body.
 * */
-function useFetchPost<ResponseType, BodyType>(url: string) {
+function useFetchWithBody<ResponseType, BodyType>(url: string, method: "POST" | "PATCH" = "POST") {
     const [responseBody, setResponseBody] = useState<ResponseType>();
     const [statusCode, setStatusCode] = useState<number|undefined>(undefined);
 
-    async function doPost(body: Nullable<BodyType>){
+    async function doRequest(body: Nullable<BodyType>){
         const response = await fetch(url, {
-            method: "POST",
+            method: method,
             body: body === null ? '' : JSON.stringify(body),
             headers: {
                 "Content-Type": "application/json"
@@ -26,7 +26,7 @@ function useFetchPost<ResponseType, BodyType>(url: string) {
         setResponseBody(data);
     }
 
-    return { doPost, responseBody, statusCode }
+    return { doRequest, responseBody, statusCode }
 }
 
-export default useFetchPost;
+export default useFetchWithBody;

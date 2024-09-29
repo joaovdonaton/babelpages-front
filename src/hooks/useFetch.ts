@@ -7,7 +7,7 @@ import Nullable from "../util/Nullable.ts";
 * NOTE: for query params the path should end in /?
 * */
 function useFetch<ResponseType>(url: Nullable<string>, options?: {
-    queryParams?: URLSearchParams,
+    queryParams?: { [key: string]: string },
     isImage?: boolean
 }) {
     const [data, setData] = useState<ResponseType|undefined>();
@@ -18,7 +18,7 @@ function useFetch<ResponseType>(url: Nullable<string>, options?: {
         let fullUrl = url!;
 
         if(options){
-            fullUrl = fullUrl + (options.queryParams !== undefined ? options.queryParams.toString() : '')
+            fullUrl = fullUrl + (options.queryParams !== undefined ? new URLSearchParams(options.queryParams).toString() : '')
         }
 
         const resp = await fetch( fullUrl);

@@ -14,12 +14,10 @@ const EditProfilePage = () => {
 
     const [ profileImg, setProfileImg ] = useState<undefined|File>(undefined);
     const [formData, setFormData] = useState<{bio: string, country: string, occupation: string|undefined}>({
-        bio: "",
-        country: "",
-        occupation: "",
+        bio: user!.profile.bio == null ? "" : user!.profile.bio,
+        country: user!.profile.country == null ? "" : user!.profile.country,
+        occupation: user!.profile.occupation == null ? "" : user!.profile.occupation,
     })
-
-    console.log(formData)
 
     function changeFile(e: ChangeEvent<HTMLInputElement>) {
         setProfileImg(e.target.files === null ? undefined : e.target.files[0]);

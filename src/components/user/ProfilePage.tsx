@@ -4,7 +4,7 @@ import {Link, useParams} from "react-router-dom";
 import useFetch from "../../hooks/useFetch.ts";
 import UserWithProfileResponse from "../../interfaces/response/UserWithProfileResponse.ts";
 import {BABEL_URL, countryCodeToName} from "../../util/constants.ts";
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useMemo} from "react";
 import loadingGif from '../../assets/images/gifs/loading.gif';
 import userIcon from '../../assets/images/icons/user-icon.png'
 import unkownFlag from '../../assets/images/replacements/unkown-flag.png'
@@ -21,10 +21,13 @@ const ProfilePage = () => {
 
     const {user} = useContext(UserContext);
 
+    // explained in MainPage.tsx
+    const paramsForReviews = useMemo(() => ({'orderBy': 'DATE', 'filterByUsername': username!, 'limit': '3', 'page': '0', 'ascDesc': 'DESC'}), []);
+
     // username! in the query param is a temporary fix for when we access a username that is invalid
     const {data: reviewsData}
         = useFetch<ReviewDetailsFullResponse[]>(BABEL_URL + "reviews/?",
-        {queryParams: new URLSearchParams({'orderBy': 'DATE', 'filterByUsername': username!, 'limit': '3', 'page': '0', 'ascDesc': 'DESC'})});
+        {queryParams: paramsForReviews});
 
     useEffect(() => {
         if(userStatusCode === 404){
