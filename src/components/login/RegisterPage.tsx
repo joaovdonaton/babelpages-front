@@ -22,7 +22,7 @@ const RegisterPage = () => {
         }
     );
 
-    const { doPost, statusCode} = useFetchWithBody<UserBasicResponse, RegisterFormData>(BABEL_URL + 'users/')
+    const { doRequest, statusCode} = useFetchWithBody<RegisterFormData, UserBasicResponse>(BABEL_URL + 'users/')
     const navigate = useNavigate();
 
     function handleSubmit(){
@@ -62,7 +62,7 @@ const RegisterPage = () => {
             return;
         }
 
-        doPost(formData)
+        doRequest(formData)
     }
 
     useEffect(() => {

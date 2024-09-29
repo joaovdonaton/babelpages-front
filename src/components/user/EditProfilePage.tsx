@@ -6,25 +6,44 @@ import {ChangeEvent, useContext, useState} from "react";
 import {UserContext} from "../../context/UserContext.ts";
 import userIcon from "../../assets/images/icons/user-icon.png";
 import GenericClientError from "../../util/GenericClientError.ts";
-import {countryCodeToName} from "../../util/constants.ts";
+import {BABEL_URL, countryCodeToName} from "../../util/constants.ts";
+import useFetchMultipart from "../../hooks/useFetchMultipart.ts";
+import ProfileUpdateFields from "../../interfaces/body/ProfileUpdateFields.ts";
+import * as Cookies from "js-cookie";
+
+/*
+* TODO:
+*  - Fix the case where we omit fields (backend doesn't accept "", we must omit for patch)
+*  - Error messages for invalid length for bio/occupation
+*  - Fetch new data for current profile.
+*  - Make sure we can clear the Profile Picture
+*  - Flesh out details
+*  - Test for all kinds of use cases and combinations
+* */
 
 const EditProfilePage = () => {
     const { username } = useParams();
     const { user } = useContext(UserContext);
 
     const [ profileImg, setProfileImg ] = useState<undefined|File>(undefined);
-    const [formData, setFormData] = useState<{bio: string, country: string, occupation: string|undefined}>({
+    const [formData, setFormData] = useState<{bio: string, country: string, occupation: string}>({
         bio: user!.profile.bio == null ? "" : user!.profile.bio,
         country: user!.profile.country == null ? "" : user!.profile.country,
         occupation: user!.profile.occupation == null ? "" : user!.profile.occupation,
     })
+
+    const { doRequest, statusCode} = useFetchMultipart<ProfileUpdateFields>(
+        BABEL_URL + "users/self",
+        "PATCH",
+        Cookies.default.get("token")
+    );
 
     function changeFile(e: ChangeEvent<HTMLInputElement>) {
         setProfileImg(e.target.files === null ? undefined : e.target.files[0]);
     }
 
     function handleSave(){
-
+        doRequest({name: "profile", content: formData}, profileImg !== undefined ? {name: "file", content: profileImg} : undefined)
     }
 
     if(username !== user?.username){

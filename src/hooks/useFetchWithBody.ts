@@ -4,7 +4,7 @@ import Nullable from "../util/Nullable.ts";
 /*
 * ResponseType is for response body. BodyType is for request body.
 * */
-function useFetchWithBody<ResponseType, BodyType>(url: string, method: "POST" | "PATCH" = "POST") {
+function useFetchWithBody<BodyType, ResponseType>(url: string, method: "POST" | "PATCH" = "POST") {
     const [responseBody, setResponseBody] = useState<ResponseType>();
     const [statusCode, setStatusCode] = useState<number|undefined>(undefined);
 
