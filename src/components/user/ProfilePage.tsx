@@ -43,7 +43,7 @@ const ProfilePage = () => {
                 :
                 <>
                     <div id="profile-page-upper">
-                        <img id="profile-img" src={generateImageURL(user!.profile.profilePictureUrl) || userIcon}
+                        <img id="profile-img" src={generateImageURL(userData!.profile.profilePictureUrl) || userIcon}
                              alt="profile picture"/>
                         <div style={{display: "flex", flexDirection: "column", alignItems: "start"}}>
                             <div>

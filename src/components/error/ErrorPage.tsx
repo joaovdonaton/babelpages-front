@@ -6,6 +6,7 @@ import GenericClientError from "../../util/GenericClientError.ts";
 
 // TODO: decide on design for this page
 // TODO: make errors pretty, handle all kinds of errors
+// TODO: 404 page (e.g /users/NON_EXISTENT_USERNAME)
 
 const ErrorPage = () => {
     const error = useRouteError();

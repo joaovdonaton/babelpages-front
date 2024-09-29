@@ -11,12 +11,20 @@
     min-height: 65%;
 }
 
-#edit-page-panel label{
+#edit-page-panel form{
+    display: flex;
+    flex-direction: column;
+}
+
+#edit-page-panel form label{
     font-size: 1.2rem;
 }
 
-#edit-page-panel input, textarea, select, select option{
+#edit-page-panel form input[type="text"], textarea, select, select option{
     padding: 0.4rem;
+    width: 100%;
+
+    margin-bottom: 1.5rem;
 }
 
 #edit-page-upload::file-selector-button{
